@@ -59,19 +59,19 @@ namespace ParametizerSample
                     // Parameters.Parameterize(ref cmd, false);
                     // Parameterize will parse, parameterize and create the parameter collection and modify the CommandText and Parameters collection
                     // appropriately
-
-                    SqlCommandFilters.Parameters.Parameterize(ref cmd);
                     
+                    SqlCommandFilters.Parameters.Parameterize(ref cmd);
+
                     // If you want to see the output of the call you can enhance the following snippet
                     // Also allows you to view in a Profiler trace
                     // By executing we will throw sytax and parsing errors
 
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        string r = rdr[0].ToString();
-                        Console.WriteLine(r);
-                    }
+                    //SqlDataReader rdr = cmd.ExecuteReader();
+                    //while (rdr.Read())
+                    //{
+                    //    string r = rdr[0].ToString();
+                    //    Console.WriteLine(r);
+                    //}
                     // Done with connection make sure we close it
                     con.Close();
 

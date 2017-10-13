@@ -47,7 +47,7 @@ namespace BasicUsage
             TextReader rdr = new StreamReader(@"c:\ScriptDom\sampleproc.sql");
 
             IList<ParseError> errors = null;
-            TSql110Parser parser = new TSql110Parser(true);
+            TSql130Parser parser = new TSql130Parser(true);
             TSqlFragment tree = parser.Parse(rdr, out errors);
 
             foreach (ParseError err in errors)
@@ -63,17 +63,15 @@ namespace BasicUsage
 
     class MyVisitor : TSqlFragmentVisitor
     {
-        public override void ExplicitVisit(ExecuteStatement node)
+        public override void ExplicitVisit(SelectStatement node)
         {
-            // print the target proc name
-            Console.WriteLine((node.ExecuteSpecification.ExecutableEntity as ExecutableProcedureReference).ProcedureReference.ProcedureReference.Name.BaseIdentifier.Value);
 
             // get the script token text
             for (int tmpLoop = node.FirstTokenIndex; tmpLoop <= node.LastTokenIndex; tmpLoop++)
             {
                 Console.Write(node.ScriptTokenStream[tmpLoop].Text);
 
-                if (node.ScriptTokenStream[tmpLoop].TokenType == TSqlTokenType.Semicolon)
+                if (node.ScriptTokenStream[tmpLoop].TokenType == TSqlTokenType.Semicolon) //SHOW TOKEN TYPES by going to definition (F12)
                 {
                     // breakpoint here and examine the token types.
                     // of special interest would be the semicolons
